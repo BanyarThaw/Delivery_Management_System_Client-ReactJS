@@ -1,25 +1,38 @@
-import React from "react";
+import React,{useEffect} from "react";
 import "./App.css";
 import logo from "./icons/bikers.svg";
+import ShipmentsPage from "./pages/ShipmentsPage";
 import ClientsPage from "./pages/ClientsPage";
+import UsersPage from "./pages/UsersPage";
 import LoginPage from "./pages/LoginPage";
 import Profile from "./components/Profile";
 import { fetchLogin,selectInfos } from "./features/loginSlice";
+import { fetchClients } from "./features/clientSlice";
+import { fetchShipments } from "./features/shipmentSlice";
+import { fetchStatuses } from "./features/statusSlice";
+import { fetchUsers } from "./features/userSlice";
 import { useDispatch, useSelector } from "react-redux";
-
 import {
-  BrowserRouter as Router,
   Route,
   NavLink,
-  Routes
+  Routes,
 } from "react-router-dom";
+
 
 const App = () => {
   const dispatch = useDispatch();
+
   const checkUser = (user) => dispatch(fetchLogin(user));
   const loginInfo = useSelector(selectInfos);
   console.log(loginInfo.role);
  
+  useEffect(() => {
+    dispatch(fetchClients());
+    dispatch(fetchShipments());
+    dispatch(fetchUsers());
+    dispatch(fetchStatuses());
+  }, []);
+
   const isLogged = () => {
     if (Object.keys(loginInfo).length) {
       return true;
@@ -56,7 +69,7 @@ const App = () => {
             <nav className="main-navigation">
               <ul>
                 <li>
-                  <NavLink className="link-main-nav" exact to="/">
+                  <NavLink className="link-main-nav" exact to="/shipments">
                     Shipments
                   </NavLink>
                 </li>
@@ -79,7 +92,10 @@ const App = () => {
       {isLogged() ? (
         <>
           <Routes>
+            <Route exact path="/" element={<ShipmentsPage />} />
+            <Route exact path="/shipments" element={<ShipmentsPage />} />
             <Route exact path="/clients" element={<ClientsPage />} />
+            <Route exact path="/users" element={<UsersPage />} />
           </Routes>
         </>
       ) : (

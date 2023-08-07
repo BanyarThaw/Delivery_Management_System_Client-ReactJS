@@ -74,7 +74,7 @@ const LoginPage = ({ checkUser }) => {
           handleSubmit={handleSubmit}
         />
       </section>
-    </>
+    </> 
   );
 }
 

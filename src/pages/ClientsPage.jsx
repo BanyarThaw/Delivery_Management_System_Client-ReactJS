@@ -1,19 +1,12 @@
-import React, { useState,useEffect } from "react";
+import React from "react";
 import "../styles/client.css";
-//import { connect } from "react-redux";
-//import { fetchClients } from "../../actions/clientActions";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchClients,selectClients } from "../features/clientSlice";
+import { useSelector } from "react-redux";
+import { selectClients } from "../features/clientSlice";
 import Profiles from "../components/Profiles";
 
 const ClientsPage = () => {
-  const dispatch = useDispatch();
   const clients = useSelector(selectClients);
-  //const [clients,setclients] = useState());
-  useEffect(() => {
-    dispatch(fetchClients());
-  }, []);
-
+  
   console.log("this is clients");
   console.log(clients);
   return (

@@ -10,16 +10,13 @@ export const fetchLogin = createAsyncThunk(
   "login/fetchLogin",
   async ( user ) => {
     try {
-      console.log(user);
       const res = await api.post('/api/login',
-      // JSON.stringify({ username: "name", password: "password" }),
       JSON.stringify(user),
       {
         headers: {
           'Content-Type': 'application/json'
         }
       });
-      console.log(res.data);
       return res.data;
     } catch (err) {
       throw new Error(err.message);
@@ -42,7 +39,6 @@ const loginSlice = createSlice({
         state.error = null;
       })
       .addCase(fetchLogin.fulfilled, (state, action) => {
-        console.log(action);
         state.info = action.payload;
         state.error = null;
       })

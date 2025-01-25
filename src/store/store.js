@@ -1,9 +1,26 @@
 import { configureStore } from "@reduxjs/toolkit";
-import loginReducer from "../features/loginSlice";
-import { getClientsReducer,getClientReducer,createClientReducer } from "../features/clientSlice";
-import { getShipmentsReducer,getShipmentReducer,createShipmentReducer } from "../features/shipmentSlice";
-import { createUserReducer, getUserReducer, getUsersReducer } from "../features/userSlice";
-import { createStatusReducer, getStatusReducer, getStatusesReducer } from "../features/statusSlice";
+import loginReducer from "../features/slices/loginSlice";
+
+import {
+  getShipmentsReducer,
+  getShipmentReducer,
+  createShipmentReducer,
+} from "../features/slices/shipmentSlice";
+import {
+  createUserReducer,
+  getUserReducer,
+  getUsersReducer,
+} from "../features/slices/userSlice";
+import {
+  createStatusReducer,
+  getStatusReducer,
+  getStatusesReducer,
+} from "../features/slices/statusSlice";
+import {
+  createClientReducer,
+  getClientReducer,
+  getClientsReducer,
+} from "../features/slices/clientSlice";
 
 const store = configureStore({
   reducer: {
@@ -19,7 +36,7 @@ const store = configureStore({
     createUser: createUserReducer,
     status: getStatusReducer,
     statuses: getStatusesReducer,
-    createStatus: createStatusReducer
+    createStatus: createStatusReducer,
   },
 });
 export default store;

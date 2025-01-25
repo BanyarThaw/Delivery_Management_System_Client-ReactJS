@@ -9,28 +9,38 @@ const Shipments = ({
   nextStatus,
   togglebikersList,
   login,
-  statuses
+  statuses,
 }) => {
-  const shipmentList = Object.values(list);
   
-  if (target && value >= 0) {
-    return shipmentList.filter(e => e[target] === value).map(e => {
-      const user = users.find(x => x.id === e.user_id);
-      return (
-        <Shipment
-          key={e.id}
-          shipment={e}
-          user={user}
-          nextStatus={nextStatus}
-          togglebikersList={togglebikersList}
-          login={login}
-          statuses={statuses}
-        />
-      );
-    });
-  } else {
-    return shipmentList.map(e => <Shipment e={e} />);
-  }
+  const renderFilteredShipments = () =>
+    list
+      .filter((shipment) => shipment[target] === value)
+      .map((shipment) => {
+        const user = users.find((user) => user.id === shipment.user_id);
+        const status = statuses.find(
+          (status) => status.id === shipment.status_id
+        );
+
+        return (
+          <Shipment
+            key={shipment.id}
+            shipment={shipment}
+            user={user}
+            nextStatus={nextStatus}
+            togglebikersList={togglebikersList}
+            login={login}
+            status={status}
+            statuses={statuses}
+          />
+        );
+      });
+
+  const renderAllShipments = () =>
+    list.map((shipment) => <Shipment key={shipment.id} shipment={shipment} />);
+
+  return target && value >= 0
+    ? renderFilteredShipments()
+    : renderAllShipments();
 };
 
 export default Shipments;

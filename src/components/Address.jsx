@@ -12,12 +12,12 @@ const Address = ({ address, hideStreet, hideState, hideCountry }) => (
     )}
     {!hideState && (
       <p>
-        {address.state_full} {address.state} {address.zipcode}
+        {address?.state_full} {address?.state} {address?.zipcode}
       </p>
     )}
     {!hideCountry && (
       <p>
-        {address.city} {address.country}
+        {address?.city} {address?.country}
       </p>
     )}
   </div>

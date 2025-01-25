@@ -1,26 +1,17 @@
 import React from "react";
 import "../styles/client.css";
-import { useSelector } from "react-redux";
-import { selectClients } from "../features/clientSlice";
+
 import Profiles from "../components/Profiles";
+import { useAppSelectors } from "../hooks/useAppSelectors";
 
 const ClientsPage = () => {
-  const clients = useSelector(selectClients);
-  
-  console.log("this is clients");
-  console.log(clients);
+  const { clients } = useAppSelectors();
   return (
     <section className="clients">
       <h2>Clients</h2>
-      <Profiles
-        list={clients}
-        folder="clients"
-        alt="Profile"
-        hideRole={true}
-      />
+      <Profiles list={clients} folder="clients" alt="Profile" hideRole={true} />
     </section>
   );
-}
+};
 
 export default ClientsPage;
-

@@ -1,28 +1,12 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { api } from "../api/axios";
+import { createSlice } from "@reduxjs/toolkit";
+import { fetchLogin } from "../thunks/login";
 
 const initialState = {
-  info: {},
+  info: localStorage.getItem("login")
+    ? JSON.parse(localStorage.getItem("login"))
+    : {},
   error: null,
 };
-
-export const fetchLogin = createAsyncThunk(
-  "login/fetchLogin",
-  async ( user ) => {
-    try {
-      const res = await api.post('/api/login',
-      JSON.stringify(user),
-      {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
-      return res.data;
-    } catch (err) {
-      throw new Error(err.message);
-    }
-  }
-);
 
 const loginSlice = createSlice({
   name: "login",
@@ -30,6 +14,7 @@ const loginSlice = createSlice({
   reducers: {
     removeLogin: (state) => {
       state.info = {};
+      localStorage.removeItem("login");
     },
   },
   extraReducers: (builder) => {
@@ -41,6 +26,7 @@ const loginSlice = createSlice({
       .addCase(fetchLogin.fulfilled, (state, action) => {
         state.info = action.payload;
         state.error = null;
+        localStorage.setItem("login", JSON.stringify(action.payload));
       })
       .addCase(fetchLogin.rejected, (state, action) => {
         state.info = {};

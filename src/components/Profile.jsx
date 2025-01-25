@@ -24,7 +24,7 @@ const Profile = ({
     {!hideEmail && <p className="email">{user ? user.email : ""}</p>}
     {!hideAddresses &&
       user.addresses && <Addresses addresses={user.addresses} />}
-    {!hideRole && <p className="role">{user.role}</p>}
+    {!hideRole && <p className="role">{user?.role}</p>}
   </article>
 );
 
